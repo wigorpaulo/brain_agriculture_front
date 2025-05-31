@@ -11,6 +11,8 @@ export interface LoginResponse {
         nome: string
         email: string
     }
+    message: string
+    statusCode: number
 }
 
 export class AuthService {
@@ -26,8 +28,9 @@ export class AuthService {
         })
 
         if (!response.ok) {
-            const error = await response.json()
-            throw new Error(error?.message || 'Erro ao autenticar')
+            const error = await response.json();
+            console.log('WIGOR error >> ', error);
+            return error;
         }
 
         return response.json()

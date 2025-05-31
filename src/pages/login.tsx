@@ -1,21 +1,25 @@
 // pages/login.tsx
 import { useState } from 'react'
 import {
+    Alert,
     Box,
     Button,
     Container,
     Paper,
     TextField,
-    Typography
+    Typography,
+    Link as MuiLink
 } from '@mui/material'
 import { AuthService } from "@/services/auth.service";
 import { useAuth } from '@/contexts/auth-context'
-import {router} from "next/client";
+import { router } from "next/client";
+import Link from 'next/link';
 
 export default function LoginPage() {
     const { login } = useAuth()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [error, setError] = useState('')
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -26,11 +30,16 @@ export default function LoginPage() {
             const data = await AuthService.login({ email, password })
             console.log('Usuário autenticado:', data)
 
-            login(data.access_token, data.user)
-            localStorage.setItem('token', data.access_token)
+            if (data.statusCode === 401) {
+                console.log('Wigor entrou aqui data >> ', data)
+                setError(data.message)
+            } else {
+                login(data.access_token, data.user)
+                localStorage.setItem('token', data.access_token)
 
-            // Redirecionar
-            router.push('/states')
+                // Redirecionar
+                router.push('/states')
+            }
         } catch (error: any) {
             console.error('Erro:', error.message)
             // Exibir toast ou mensagem de erro
@@ -44,6 +53,11 @@ export default function LoginPage() {
                     Login
                 </Typography>
                 <Box component="form" onSubmit={handleLogin} noValidate>
+                    {error && (
+                        <Alert severity="error" sx={{ mb: 2 }}>
+                            {error}
+                        </Alert>
+                    )}
                     <TextField
                         label="Email"
                         type="email"
@@ -62,6 +76,12 @@ export default function LoginPage() {
                         margin="normal"
                         required
                     />
+                    {/* Link para criar novo usuário */}
+                    <Box mt={2} mb={1} textAlign="center">
+                        <MuiLink component={Link} href="/register/user" underline="hover">
+                            Criar novo usuário
+                        </MuiLink>
+                    </Box>
                     <Button
                         type="submit"
                         variant="contained"
