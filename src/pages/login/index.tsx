@@ -14,6 +14,7 @@ import { AuthService } from "@/services/auth.service";
 import { useAuth } from '@/contexts/auth-context'
 import { router } from "next/client";
 import Link from 'next/link';
+import Cookies from 'js-cookie';
 
 export default function LoginPage() {
     const { login } = useAuth()
@@ -35,7 +36,12 @@ export default function LoginPage() {
                 setError(data.message)
             } else {
                 login(data.access_token, data.user)
-                localStorage.setItem('token', data.access_token)
+
+                Cookies.set('token', data.access_token, {
+                    expires: 7, // dias
+                    secure: true, // apenas HTTPS
+                    sameSite: 'Strict',
+                });
 
                 // Redirecionar
                 router.push('/states')
@@ -78,7 +84,7 @@ export default function LoginPage() {
                     />
                     {/* Link para criar novo usuário */}
                     <Box mt={2} mb={1} textAlign="center">
-                        <MuiLink component={Link} href="/register/user" underline="hover">
+                        <MuiLink component={Link} href="/users/new" underline="hover">
                             Criar novo usuário
                         </MuiLink>
                     </Box>

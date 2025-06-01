@@ -1,3 +1,6 @@
+
+
+
 import { useState } from 'react';
 import {
     TextField,
@@ -11,7 +14,7 @@ import {
 import Link from 'next/link';
 import {UserServices} from "@/services/user.services";
 
-export default function UserPage() {
+export default function NewPage() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
@@ -27,7 +30,7 @@ export default function UserPage() {
             const data = await UserServices.create({ name: name, email: email, password: senha })
 
             if (data.statusCode === 401) {
-                setError(data.message)
+                setError(String(data.message))
             } else {
                 setSuccess('Usuário criado com sucesso!');
                 setName('');

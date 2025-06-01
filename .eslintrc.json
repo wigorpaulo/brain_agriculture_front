@@ -1,0 +1,13 @@
+{
+  "extends": [
+    "next/core-web-vitals",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "rules": {
+    "semi": ["error", "always"],  // Obriga uso de ;
+    "@typescript-eslint/semi": ["error"]  // Garante compatibilidade com TypeScript
+  }
+}
