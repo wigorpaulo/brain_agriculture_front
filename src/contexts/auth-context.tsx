@@ -1,10 +1,5 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react'
-
-interface User {
-    id: number
-    nome: string
-    email: string
-}
+import {User} from "@/types/user";
 
 interface AuthContextProps {
     token: string | null
