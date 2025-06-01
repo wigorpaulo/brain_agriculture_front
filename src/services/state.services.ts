@@ -12,14 +12,13 @@ export default class StateService {
 
         if (!response.ok) {
             const error = await response.json()
-            throw new Error(error?.message || 'Erro ao autenticar')
+            return error
         }
 
         return response.json();
     }
 
     static async create(baseUrl: string, token: string | null, state: State): Promise<State> {
-        console.log('Wigor state >> ', state);
         const response = await fetch(`${baseUrl}/states`, {
             method: 'POST',
             headers: {

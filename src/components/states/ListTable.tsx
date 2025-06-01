@@ -13,6 +13,7 @@ import {useEffect, useState} from "react";
 import {State} from "@/types/state";
 import stateService from "@/services/state.services";
 import {useAuth} from "@/contexts/auth-context";
+import { router } from "next/client";
 
 export default function StateListTable({ filters }: { filters: any }) {
     const { token, baseUrl } = useAuth();
@@ -23,15 +24,19 @@ export default function StateListTable({ filters }: { filters: any }) {
         try {
             const data = await stateService.getAll(baseUrl, String(token));
 
-            const states = data.map((state: State) => ({
-                id: state.id,
-                uf: state.uf,
-                name: state.name,
-                created_at: state.created_at,
-                updated_at: state.updated_at,
-            }));
+            if (data.statusCode === 401) {
+                router.push('/login')
+            } else {
+                const states = data.map((state: State) => ({
+                    id: state.id,
+                    uf: state.uf,
+                    name: state.name,
+                    created_at: state.created_at,
+                    updated_at: state.updated_at,
+                }));
 
-            setStates(states);
+                setStates(states);
+            }
         } catch (error) {
             console.error('Erro ao buscar estados:', error);
         } finally {

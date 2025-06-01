@@ -23,10 +23,6 @@ export default function StateFilterForm({onSearch}: Props) {
                     onChange={(e) => setName(e.target.value)}
                     fullWidth
                 />
-                <FormControlLabel
-                    control={<Checkbox checked={active} onChange={(e) => setActive(e.target.checked)}/>}
-                    label="Ativo?"
-                />
                 <Stack direction="row" spacing={2}>
                     <Button type="submit" variant="contained" color="primary">Pesquisar</Button>
                     <Button variant="outlined" onClick={() => {
