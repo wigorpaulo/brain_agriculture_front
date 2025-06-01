@@ -2,8 +2,8 @@
 import {User} from "@/types/user";
 
 export interface LoginPayload {
-    email: string
-    password: string
+    email: string;
+    password: string;
 }
 
 export interface LoginResponse {
@@ -14,10 +14,8 @@ export interface LoginResponse {
 }
 
 export class AuthService {
-    private static BASE_URL = 'http://localhost:3000'
-
-    static async login(payload: LoginPayload): Promise<LoginResponse> {
-        const response = await fetch(`${this.BASE_URL}/auth/login`, {
+    static async login(baseUrl: string, payload: LoginPayload): Promise<LoginResponse> {
+        const response = await fetch(`${baseUrl}/auth/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

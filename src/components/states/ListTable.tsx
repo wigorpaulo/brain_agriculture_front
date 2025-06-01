@@ -15,13 +15,13 @@ import stateService from "@/services/state.services";
 import {useAuth} from "@/contexts/auth-context";
 
 export default function StateListTable({ filters }: { filters: any }) {
-    const { token } = useAuth();
+    const { token, baseUrl } = useAuth();
     const [states, setStates] = useState<State[]>([]);
     const [loading, setLoading] = useState(true);
 
     const fetchEstados = async () => {
         try {
-            const data = await stateService.getAll(String(token));
+            const data = await stateService.getAll(baseUrl, String(token));
 
             const states = data.map((state: State) => ({
                 id: state.id,

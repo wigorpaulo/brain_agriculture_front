@@ -14,40 +14,30 @@ import { AuthService } from "@/services/auth.service";
 import { useAuth } from '@/contexts/auth-context'
 import { router } from "next/client";
 import Link from 'next/link';
-import Cookies from 'js-cookie';
 
 export default function LoginPage() {
-    const { login } = useAuth()
+    const { login, baseUrl } = useAuth()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault()
-        console.log('Login com:', { email, password })
-        // Aqui você pode chamar sua API de autenticação
 
         try {
-            const data = await AuthService.login({ email, password })
-            console.log('Usuário autenticado:', data)
+            const data = await AuthService.login(baseUrl, { email, password })
 
             if (data.statusCode === 401) {
-                console.log('Wigor entrou aqui data >> ', data)
                 setError(data.message)
             } else {
                 login(data.access_token, data.user)
-
-                Cookies.set('token', data.access_token, {
-                    expires: new Date(Date.now() + 60 * 60 * 1000), // 1 hora
-                    secure: true, // apenas HTTPS
-                    sameSite: 'Strict',
-                });
 
                 // Redirecionar
                 router.push('/states')
             }
         } catch (error: any) {
             console.error('Erro:', error.message)
+            setError(error.message)
             // Exibir toast ou mensagem de erro
         }
     }

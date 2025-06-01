@@ -3,10 +3,8 @@ import { useState } from 'react'
 import { Container, Box, Typography, Paper, Button, Stack } from '@mui/material';
 import StateFilterForm from "@/components/states/Search";
 import StateListTable from "@/components/states/ListTable";
-import { useRouter } from 'next/router';
 
 export default function StatesPage() {
-    const router = useRouter();
     const [filters, setFilters] = useState({ description: '', active: true });
 
     const handleSearch = async (values: typeof filters) => {

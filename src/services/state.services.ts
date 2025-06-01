@@ -1,10 +1,8 @@
 import {State} from "@/types/state";
 
 export default class StateService {
-    private static BASE_URL = 'http://localhost:3000';
-
-    static async getAll(token: string | null): Promise<State[]> {
-        const response = await fetch(`${this.BASE_URL}/states`, {
+    static async getAll(baseUrl: string, token: string | null): Promise<State[]> {
+        const response = await fetch(`${baseUrl}/states`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -20,9 +18,9 @@ export default class StateService {
         return response.json();
     }
 
-    static async create(token: string | null, state: State): Promise<State> {
+    static async create(baseUrl: string, token: string | null, state: State): Promise<State> {
         console.log('Wigor state >> ', state);
-        const response = await fetch(`${this.BASE_URL}/states`, {
+        const response = await fetch(`${baseUrl}/states`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

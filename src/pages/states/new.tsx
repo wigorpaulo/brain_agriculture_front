@@ -6,14 +6,14 @@ import stateService from '@/services/state.services';
 import { useAuth } from '@/contexts/auth-context';
 
 export default function NewStatePage() {
-    const { token } = useAuth();
+    const { token, baseUrl } = useAuth();
     const router = useRouter();
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
 
     const handleCreate = async (data: { uf: string; name: string }) => {
         try {
-            await stateService.create(String(token), data); // Exemplo: POST /states
+            await stateService.create(baseUrl, String(token), data); // Exemplo: POST /states
             setSuccess('Estado criado com sucesso!');
             setError('');
             setTimeout(() => router.push('/states'), 1500);
