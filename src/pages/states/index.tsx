@@ -1,81 +1,34 @@
 // pages/estados.tsx
-import { useEffect, useState } from 'react'
-import {
-    Container,
-    Typography,
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableRow,
-    Paper,
-    CircularProgress,
-} from '@mui/material'
-import {StateService} from "@/services/state.services";
-import Cookies from 'js-cookie';
-
-interface Estado {
-    id: number
-    nome: string
-    sigla: string
-}
+import { useState } from 'react'
+import { Container, Box, Typography, Paper, Button, Stack } from '@mui/material';
+import StateFilterForm from "@/components/states/Search";
+import StateListTable from "@/components/states/ListTable";
+import { useRouter } from 'next/router';
 
 export default function StatesPage() {
-    const [estados, setEstados] = useState<Estado[]>([]);
-    const [loading, setLoading] = useState(true);
+    const router = useRouter();
+    const [filters, setFilters] = useState({ description: '', active: true });
 
-    useEffect(() => {
-        const fetchEstados = async () => {
-            try {
-                const data = await StateService.getAll(String(Cookies.get('token')));
-
-                const estadosFormatados = data.map((estado: any) => ({
-                    id: estado.id,
-                    nome: estado.name,
-                    sigla: estado.uf,
-                }));
-
-                setEstados(estadosFormatados);
-            } catch (error) {
-                console.error('Erro ao buscar estados:', error);
-            } finally {
-                setLoading(false);
-            }
-        }
-
-        fetchEstados()
-    }, [])
+    const handleSearch = async (values: typeof filters) => {
+        setFilters(values);
+        // buscar estados no backend com os filtros
+    };
 
     return (
-        <Container maxWidth="md" sx={{ mt: 4 }}>
-            <Typography variant="h4" gutterBottom>
-                Lista de Estados
-            </Typography>
+        <Container maxWidth="lg">
+            <Box my={4}>
+                <Typography variant="h4" gutterBottom>Estado</Typography>
 
-            {loading ? (
-                <CircularProgress />
-            ) : (
-                <Paper>
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell><strong>ID</strong></TableCell>
-                                <TableCell><strong>Nome</strong></TableCell>
-                                <TableCell><strong>Sigla</strong></TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {estados.map((estado) => (
-                                <TableRow key={estado.id}>
-                                    <TableCell>{estado.id}</TableCell>
-                                    <TableCell>{estado.nome}</TableCell>
-                                    <TableCell>{estado.sigla}</TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
+                <Paper sx={{ p: 3, mb: 4 }}>
+                    <Typography variant="h6" gutterBottom>Filtro de Estado</Typography>
+                    <StateFilterForm onSearch={handleSearch} />
                 </Paper>
-            )}
+
+                <Paper sx={{ p: 3 }}>
+                    <Typography variant="h6" gutterBottom>Listagem de Estado</Typography>
+                    <StateListTable filters={filters} />
+                </Paper>
+            </Box>
         </Container>
     )
 }

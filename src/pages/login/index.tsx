@@ -38,7 +38,7 @@ export default function LoginPage() {
                 login(data.access_token, data.user)
 
                 Cookies.set('token', data.access_token, {
-                    expires: 7, // dias
+                    expires: new Date(Date.now() + 60 * 60 * 1000), // 1 hora
                     secure: true, // apenas HTTPS
                     sameSite: 'Strict',
                 });
