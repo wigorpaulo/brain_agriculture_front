@@ -2,6 +2,7 @@ import {AppBar, Toolbar, Typography, Button, Box} from '@mui/material'
 import {useAuth} from '@/contexts/auth-context'
 import {useRouter} from 'next/router'
 import {LanguageSwitcher} from "@/components/LanguageSwitcher";
+import {LogoutButton} from "@/components/LogoutButton";
 
 export default function Topbar() {
     const {logout, user} = useAuth()
@@ -28,9 +29,7 @@ export default function Topbar() {
                 <Box display="flex" alignItems="center" gap={2}>
                     <LanguageSwitcher />
                     {user && <Typography variant="body1">Olá, {user.name}</Typography>}
-                    <Button color="inherit" onClick={handleLogout}>
-                        Sair
-                    </Button>
+                    <LogoutButton handleLogout={handleLogout} />
                 </Box>
             </Toolbar>
         </AppBar>
