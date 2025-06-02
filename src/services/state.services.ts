@@ -35,4 +35,21 @@ export default class StateService {
 
         return response.json();
     }
+
+    static async getOne(baseUrl: string, token: string | null, id: string): Promise<State> {
+        const response = await fetch(`${baseUrl}/states/${id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (!response.ok) {
+            const error = await response.json()
+            throw new Error(error?.message || 'Erro ao buscar')
+        }
+
+        return response.json();
+    }
 }
