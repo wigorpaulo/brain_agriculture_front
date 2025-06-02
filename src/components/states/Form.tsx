@@ -54,6 +54,9 @@ export default function StateForm({
                 <Button type="submit" variant="contained" color="primary" disabled={isSubmitting}>
                     {isSubmitting ? 'Salvando...' : 'Salvar'}
                 </Button>
+                <Button type="button" href="/states" variant="contained" color="secondary" disabled={isSubmitting}>
+                    Voltar
+                </Button>
             </Stack>
         </Box>
     );

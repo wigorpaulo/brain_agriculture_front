@@ -45,8 +45,18 @@ export default function StateListTable({ filters }: { filters: any }) {
     }
 
     useEffect(() => {
-        fetchEstados();
-    }, []);
+        if (token) {
+            fetchEstados();
+        }
+    }, [token]);
+
+    if (!token || loading) {
+        return (
+            <Container sx={{ textAlign: 'center', mt: 4 }}>
+                <CircularProgress />
+            </Container>
+        );
+    }
 
     return (
         <Container>
