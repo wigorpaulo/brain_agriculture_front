@@ -13,7 +13,7 @@ export default function StatesPage() {
     };
 
     return (
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" sx={{mt: 8}}>
             <Box my={4}>
                 <Typography variant="h4" gutterBottom>Estado</Typography>
 

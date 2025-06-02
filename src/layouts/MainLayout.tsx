@@ -13,6 +13,7 @@ import {
 } from '@mui/material';
 import { useRouter } from 'next/router';
 import Sidebar from "@/components/Sidebar";
+import Topbar from "@/components/Topbar";
 
 const drawerWidth = 240;
 
@@ -23,23 +24,8 @@ export default function MainLayout({ children }: { children: ReactNode }) {
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
 
-            {/* AppBar fixo no topo */}
-            <AppBar
-                position="fixed"
-                sx={{
-                    width: '100%',
-                    zIndex: (theme) => theme.zIndex.drawer + 1,
-                    bgcolor: 'white',
-                    color: 'black',
-                    boxShadow: 1,
-                }}
-            >
-                <Toolbar>
-                    <Typography variant="h6" noWrap component="div">
-                        Painel Administrativo
-                    </Typography>
-                </Toolbar>
-            </AppBar>
+            {/*AppBar fixo no topo*/}
+            <Topbar />
 
             {/* Sidebar na lateral esquerda */}
             <Drawer
@@ -59,17 +45,8 @@ export default function MainLayout({ children }: { children: ReactNode }) {
             </Drawer>
 
             {/* Conteúdo principal à direita do sidebar */}
-            <Box
-                component="main"
-                sx={{
-                    flexGrow: 1,
-                    p: 3,
-                    mt: 8, // altura do AppBar
-                    ml: `${drawerWidth}px`,
-                }}
-            >
-                {children}
-            </Box>
+
+            {children}
         </Box>
     );
 }
