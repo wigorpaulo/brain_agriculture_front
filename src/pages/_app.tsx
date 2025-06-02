@@ -5,8 +5,9 @@ import theme from '../theme'
 import {AuthProvider} from '@/contexts/auth-context'
 import MainLayout from "@/layouts/MainLayout";
 import { useRouter } from 'next/router'
+import { appWithTranslation } from 'next-i18next';
 
-export default function App({Component, pageProps}: AppProps) {
+function App({Component, pageProps}: AppProps) {
     const router = useRouter()
     const noLayoutPages = ['/login', '/users/new']
     const isPublicPage = noLayoutPages.includes(router.pathname)
@@ -35,3 +36,6 @@ export default function App({Component, pageProps}: AppProps) {
         </AuthProvider>
     )
 }
+
+
+export default appWithTranslation(App);
