@@ -19,7 +19,7 @@ export default function Sidebar() {
                 },
             }}
         >
-            <Toolbar />
+            <Toolbar /> {/* Apenas para alinhar com o AppBar */}
             <List>
                 <ListItem disablePadding>
                     <Link href="/" passHref legacyBehavior>

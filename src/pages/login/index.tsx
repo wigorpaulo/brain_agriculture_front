@@ -1,5 +1,5 @@
 // pages/login.tsx
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {
     Alert,
     Box,
@@ -16,7 +16,7 @@ import { router } from "next/client";
 import Link from 'next/link';
 
 export default function LoginPage() {
-    const { login, baseUrl } = useAuth()
+    const { login, baseUrl, isAuthenticated } = useAuth()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
@@ -41,6 +41,12 @@ export default function LoginPage() {
             // Exibir toast ou mensagem de erro
         }
     }
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            router.replace('/states') // ou qualquer outra rota
+        }
+    }, [isAuthenticated, router])
 
     return (
         <Container maxWidth="sm">
