@@ -1,7 +1,10 @@
 import { Button } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout'; // Ícone de saída
+import { useTranslation } from 'next-i18next';
 
 export function LogoutButton({ handleLogout }: { handleLogout: () => void }) {
+    const { t } = useTranslation('common');
+
     return (
         <Button
             color="inherit"

@@ -1,24 +1,17 @@
 import { ReactNode } from 'react';
 import {
-    AppBar,
     Toolbar,
-    Typography,
     Box,
     CssBaseline,
     Drawer,
-    List,
-    ListItem,
-    ListItemButton,
-    ListItemText, Container,
+    Container,
 } from '@mui/material';
-import { useRouter } from 'next/router';
 import Sidebar from "@/components/Sidebar";
 import Topbar from "@/components/Topbar";
 
 const drawerWidth = 240;
 
 export default function MainLayout({ children }: { children: ReactNode }) {
-    const router = useRouter();
 
     return (
         <Box sx={{ display: 'flex' }}>
