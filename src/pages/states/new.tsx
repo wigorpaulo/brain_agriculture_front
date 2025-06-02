@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Container, Typography } from '@mui/material';
+import {Box, Container, Typography} from '@mui/material';
 import StateForm from '@/components/states/Form';
 import { useRouter } from 'next/router';
 import stateService from '@/services/state.services';
@@ -24,9 +24,9 @@ export default function NewStatePage() {
     };
 
     return (
-        <Container maxWidth="sm">
+        <Box my={4}>
             <Typography variant="h4" gutterBottom>Criar Estado</Typography>
             <StateForm onSubmit={handleCreate} error={error} success={success} />
-        </Container>
+        </Box>
     );
 }

@@ -9,7 +9,7 @@ import {
     List,
     ListItem,
     ListItemButton,
-    ListItemText,
+    ListItemText, Container,
 } from '@mui/material';
 import { useRouter } from 'next/router';
 import Sidebar from "@/components/Sidebar";
@@ -45,8 +45,10 @@ export default function MainLayout({ children }: { children: ReactNode }) {
             </Drawer>
 
             {/* Conteúdo principal à direita do sidebar */}
+            <Container maxWidth="lg" sx={{mt: 8}}>
+                {children}
+            </Container>
 
-            {children}
         </Box>
     );
 }
