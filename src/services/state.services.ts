@@ -71,7 +71,7 @@ export default class StateService {
         return response.json();
     }
 
-    static async getOne(baseUrl: string, token: string | null, id: string): Promise<State> {
+    static async getById(baseUrl: string, token: string | null, id: string): Promise<State> {
         const response = await fetch(`${baseUrl}/states/${id}`, {
             method: 'GET',
             headers: {

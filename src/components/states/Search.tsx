@@ -1,5 +1,9 @@
 import {useState} from 'react';
-import {TextField, Checkbox, FormControlLabel, Stack, Button} from '@mui/material';
+import {TextField, Stack, Button} from '@mui/material';
+import {useTranslation} from 'next-i18next';
+import SearchIcon from '@mui/icons-material/Search';
+import ClearIcon from '@mui/icons-material/Clear';
+import AddIcon from '@mui/icons-material/Add';
 
 interface Props {
     onSearch: (filters: { name: string; }) => void;
@@ -8,6 +12,7 @@ interface Props {
 export default function StateFilterForm({onSearch}: Props) {
     const [name, setName] = useState('');
     const [active, setActive] = useState(true);
+    const {t} = useTranslation('common');
 
     return (
         <form
@@ -24,12 +29,30 @@ export default function StateFilterForm({onSearch}: Props) {
                     fullWidth
                 />
                 <Stack direction="row" spacing={2}>
-                    <Button type="submit" variant="contained" color="primary">Pesquisar</Button>
-                    <Button variant="outlined" onClick={() => {
-                        setName('');
-                        setActive(true);
-                    }}>Limpar</Button>
-                    <Button variant="contained" color="info" onClick={() => location.href = '/states/new'}>Novo</Button>
+                    <Button type="submit"
+                            variant="contained"
+                            color="primary"
+                            startIcon={<SearchIcon/>}
+                    >
+                        {t('search')}
+                    </Button>
+                    <Button variant="outlined"
+                            onClick={() => {
+                                setName('');
+                                setActive(true);
+                            }}
+                            startIcon={<ClearIcon/>}
+                    >
+                        {t('clear')}
+                    </Button>
+                    <Button variant="contained"
+                            color="info"
+                            onClick={() => location.href = '/states/new'}
+                            startIcon={<AddIcon />}
+                            sx={{ backgroundColor: '#4CAF50', '&:hover': { backgroundColor: '#45A049' } }}
+                    >
+                        {t('new')}
+                    </Button>
                 </Stack>
             </Stack>
         </form>

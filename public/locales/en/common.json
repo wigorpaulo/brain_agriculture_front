@@ -1,5 +1,16 @@
 {
   "welcome": "Welcome",
   "logout": "Exit",
-  "state.create": "Create State"
+  "list": "List",
+  "filter": "Filter",
+  "search": "Search",
+  "clear": "Clear",
+  "new": "New",
+  "login": "Login",
+  "email": "E-mail",
+  "password": "Password",
+  "enter": "Enter",
+  "user.create": "Create User",
+  "state.create": "Create State",
+  "state.edit": "Edit State"
 }

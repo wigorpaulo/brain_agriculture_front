@@ -1,5 +1,16 @@
 {
   "welcome": "Bem-vindo",
   "logout": "Sair",
-  "state.create": "Criar Estado"
+  "list": "Listagem",
+  "filter": "Filtro",
+  "search": "Pesquisar",
+  "clear": "Limpar",
+  "new": "Novo",
+  "login": "Autenticação",
+  "email": "E-mail",
+  "password": "Senha",
+  "enter": "Entrar",
+  "user.create": "Criar Usuário",
+  "state.create": "Criar Estado",
+  "state.edit": "Editar Estado"
 }
