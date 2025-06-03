@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import {Box, Container, Typography} from '@mui/material';
+import {Box, Typography} from '@mui/material';
 import StateForm from '@/components/states/Form';
 import { useRouter } from 'next/router';
 import stateService from '@/services/state.services';

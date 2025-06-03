@@ -1,7 +1,7 @@
 // pages/states/[id]/edit.tsx
 import {useEffect, useState} from 'react';
 import {useRouter} from 'next/router';
-import {Box, Container, Typography} from '@mui/material';
+import {Box, CircularProgress, Container, Typography} from '@mui/material';
 import {GetServerSideProps} from 'next';
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
 import {useTranslation} from 'next-i18next';
@@ -12,10 +12,10 @@ import {State} from '@/types/state';
 import {useAuth} from '@/contexts/auth-context';
 
 export default function EditStatePage() {
-    const {t} = useTranslation('common');
+    const { t } = useTranslation('common');
     const { token, baseUrl } = useAuth();
     const router = useRouter();
-    const {id} = router.query;
+    const { id } = router.query;
 
     const [state, setState] = useState<State | null>(null);
     const [loading, setLoading] = useState(true);
@@ -29,7 +29,7 @@ export default function EditStatePage() {
                 const data = await stateService.getById(baseUrl, token, id,);
                 setState(data);
             } catch (err: any) {
-                setError(t('error_fetching_state') || 'Erro ao buscar estado.');
+                setError(t('state.find.error'));
             } finally {
                 setLoading(false);
             }
@@ -38,17 +38,25 @@ export default function EditStatePage() {
         if (token) fetchState();
     }, [id, token, t]);
 
-    const handleUpdate = async (updatedData: { uf: string; name: string }) => {
+    const handleUpdate = async (updatedData: State) => {
         try {
             if (!id || typeof id !== 'string') return;
             await stateService.update(baseUrl, token, updatedData, id);
-            setSuccess(t('state_updated_successfully') || 'Estado atualizado com sucesso!');
+            setSuccess(t('state.update.success'));
             setError('');
             setTimeout(() => router.push('/states'), 1500);
         } catch (err: any) {
-            setError(err?.message || t('error_updating_state') || 'Erro ao atualizar estado.');
+            setError(err?.message || t('state.update.error'));
         }
     };
+
+    if (!token || loading) {
+        return (
+            <Container sx={{ textAlign: 'center', mt: 4 }}>
+                <CircularProgress />
+            </Container>
+        );
+    }
 
     return (
         <Box my={4}>

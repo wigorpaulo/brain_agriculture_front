@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { TextField, Button, Stack, Box, Alert } from '@mui/material';
 import {State} from "@/types/state";
+import {useTranslation} from 'next-i18next';
 
 interface Props {
     initialData?: Partial<State>;
@@ -19,6 +20,7 @@ export default function StateForm({
                                   }: Props) {
     const [uf, setUf] = useState(initialData.uf || '');
     const [name, setName] = useState(initialData.name || '');
+    const {t} = useTranslation('common');
 
     useEffect(() => {
         if (initialData.uf) setUf(initialData.uf);
@@ -37,7 +39,7 @@ export default function StateForm({
                 {success && <Alert severity="success">{success}</Alert>}
 
                 <TextField
-                    label="UF"
+                    label={ t("state.uf") }
                     value={uf}
                     onChange={(e) => setUf(e.target.value.toUpperCase())}
                     inputProps={{ maxLength: 2 }}
@@ -45,17 +47,17 @@ export default function StateForm({
                 />
 
                 <TextField
-                    label="Nome"
+                    label={ t("state.name") }
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required
                 />
 
                 <Button type="submit" variant="contained" color="primary" disabled={isSubmitting}>
-                    {isSubmitting ? 'Salvando...' : 'Salvar'}
+                    {isSubmitting ? t("salvage") : t("save")}
                 </Button>
                 <Button type="button" href="/states" variant="contained" color="secondary" disabled={isSubmitting}>
-                    Voltar
+                    { t("back") }
                 </Button>
             </Stack>
         </Box>

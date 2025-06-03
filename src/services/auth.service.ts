@@ -31,11 +31,4 @@ export class AuthService {
 
         return response.json()
     }
-
-    static async logout(): Promise<void> {
-        await fetch(`${this.BASE_URL}/logout`, {
-            method: 'POST',
-            credentials: 'include' // se usar cookie
-        })
-    }
 }
