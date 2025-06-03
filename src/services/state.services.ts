@@ -30,7 +30,42 @@ export default class StateService {
 
         if (!response.ok) {
             const error = await response.json()
-            throw new Error(error?.message || 'Erro ao criar')
+            return error
+        }
+
+        return response.json();
+    }
+
+    static async update(baseUrl: string, token: string | null, state: State, id: string): Promise<State> {
+        const response = await fetch(`${baseUrl}/states/${id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(state)
+        });
+
+        if (!response.ok) {
+            const error = await response.json()
+            return error
+        }
+
+        return response.json();
+    }
+
+    static async delete(baseUrl: string, token: string | null, id: string): Promise<State> {
+        const response = await fetch(`${baseUrl}/states/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (!response.ok) {
+            const error = await response.json()
+            return error
         }
 
         return response.json();
@@ -47,7 +82,7 @@ export default class StateService {
 
         if (!response.ok) {
             const error = await response.json()
-            throw new Error(error?.message || 'Erro ao buscar')
+            return error
         }
 
         return response.json();
