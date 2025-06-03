@@ -10,7 +10,12 @@
   "email": "E-mail",
   "password": "Senha",
   "enter": "Entrar",
+  "action": "Ações",
   "user.create": "Criar Usuário",
   "state.create": "Criar Estado",
-  "state.edit": "Editar Estado"
+  "state.edit": "Editar Estado",
+  "state.id": "ID",
+  "state.uf": "UF",
+  "state.name": "Descrição",
+  "state.created_at": "Criado em"
 }

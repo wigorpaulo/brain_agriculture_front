@@ -1,7 +1,7 @@
-import {State} from "@/types/state";
+import {GetAllStatesResponse, State} from "@/types/state";
 
 export default class StateService {
-    static async getAll(baseUrl: string, token: string | null): Promise<State[]> {
+    static async getAll(baseUrl: string, token: string | null): Promise<GetAllStatesResponse> {
         const response = await fetch(`${baseUrl}/states`, {
             method: 'GET',
             headers: {
@@ -10,12 +10,17 @@ export default class StateService {
             }
         });
 
+        const data = await response.json();
+
         if (!response.ok) {
-            const error = await response.json()
-            return error
+            return {
+                states: [],
+                statusCode: response.status,
+                message: data?.message || 'Erro desconhecido',
+            };
         }
 
-        return response.json();
+        return { states: data };
     }
 
     static async create(baseUrl: string, token: string | null, state: State): Promise<State> {

@@ -10,7 +10,12 @@
   "email": "E-mail",
   "password": "Password",
   "enter": "Enter",
+  "action": "Actions",
   "user.create": "Create User",
   "state.create": "Create State",
-  "state.edit": "Edit State"
+  "state.edit": "Edit State",
+  "state.id": "ID",
+  "state.uf": "UF",
+  "state.name": "Name",
+  "state.created_at": "Created"
 }

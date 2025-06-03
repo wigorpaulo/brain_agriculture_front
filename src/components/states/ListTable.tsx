@@ -12,23 +12,26 @@ import {
 } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useEffect, useState } from "react";
-import { State } from "@/types/state";
+import {GetAllStatesResponse, State} from "@/types/state";
 import stateService from "@/services/state.services";
 import { useAuth } from "@/contexts/auth-context";
 import { useRouter } from "next/router";
 import EditIcon from '@mui/icons-material/Edit';
+import { formatDateTime } from "../../helper/Util";
+import { useTranslation } from 'next-i18next';
 
 export default function StateListTable({ filters }: { filters: any }) {
     const { token, baseUrl } = useAuth();
     const [states, setStates] = useState<State[]>([]);
     const [loading, setLoading] = useState(true);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-    const [selectedStateId, setSelectedStateId] = useState<string | null>(null);
+    const [selectedStateId, setSelectedStateId] = useState<string | number | null>(null);
     const router = useRouter();
+    const { t } = useTranslation('common');
 
     const open = Boolean(anchorEl);
 
-    const handleMenuOpen = (event: React.MouseEvent<HTMLElement>, id: string) => {
+    const handleMenuOpen = (event: React.MouseEvent<HTMLElement>, id: string | number) => {
         setAnchorEl(event.currentTarget);
         setSelectedStateId(id);
     };
@@ -47,11 +50,11 @@ export default function StateListTable({ filters }: { filters: any }) {
 
     const fetchEstados = async () => {
         try {
-            const data = await stateService.getAll(baseUrl, String(token));
+            const data: GetAllStatesResponse = await stateService.getAll(baseUrl, String(token));
             if (data.statusCode === 401) {
                 router.push('/login');
             } else {
-                const states = data.map((state: State) => ({
+                const states = data.states.map((state: State) => ({
                     id: state.id,
                     uf: state.uf,
                     name: state.name,
@@ -86,11 +89,11 @@ export default function StateListTable({ filters }: { filters: any }) {
             <Table>
                 <TableHead>
                     <TableRow>
-                        <TableCell>ID</TableCell>
-                        <TableCell>UF</TableCell>
-                        <TableCell>Descrição</TableCell>
-                        <TableCell>Criado em</TableCell>
-                        <TableCell>Ações</TableCell>
+                        <TableCell sx={{ fontWeight: 'bold' }}>{ t("state.id") }</TableCell>
+                        <TableCell sx={{ fontWeight: 'bold' }}>{ t("state.uf") }</TableCell>
+                        <TableCell sx={{ fontWeight: 'bold' }}>{ t("state.name") }</TableCell>
+                        <TableCell sx={{ fontWeight: 'bold' }}>{ t("state.created_at") }</TableCell>
+                        <TableCell sx={{ fontWeight: 'bold' }}>{ t("action") }</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -99,7 +102,7 @@ export default function StateListTable({ filters }: { filters: any }) {
                             <TableCell>{state.id}</TableCell>
                             <TableCell>{state.uf}</TableCell>
                             <TableCell>{state.name}</TableCell>
-                            <TableCell>{String(state.created_at)}</TableCell>
+                            <TableCell>{formatDateTime(String(state.created_at))}</TableCell>
                             <TableCell>
                                 <IconButton onClick={(e) => handleMenuOpen(e, state.id)}>
                                     <MoreVertIcon />
