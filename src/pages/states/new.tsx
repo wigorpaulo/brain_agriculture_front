@@ -7,6 +7,7 @@ import { useAuth } from '@/contexts/auth-context';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import type {GetServerSideProps} from "next";
+import {State} from "@/types/state";
 
 export default function NewStatePage() {
     const { token, baseUrl } = useAuth();
@@ -15,14 +16,20 @@ export default function NewStatePage() {
     const [success, setSuccess] = useState('');
     const { t } = useTranslation('common');
 
-    const handleCreate = async (data: { uf: string; name: string }) => {
+    const handleCreate = async (data: State) => {
         try {
-            await stateService.create(baseUrl, String(token), data); // Exemplo: POST /states
-            setSuccess('Estado criado com sucesso!');
-            setError('');
-            setTimeout(() => router.push('/states'), 1500);
+            const response = await stateService.create(baseUrl, String(token), data); // Exemplo: POST /states
+
+            if (response.statusCode === 201) {
+                setSuccess(t("state.create.success"));
+                setError('');
+                router.push('/states')
+            } else {
+                setError(response?.message || t("state.create.error"));
+                setSuccess('');
+            }
         } catch (err: any) {
-            setError(err?.message || 'Erro ao criar estado.');
+            setError(err?.message || t("state.create.error"));
             setSuccess('');
         }
     };

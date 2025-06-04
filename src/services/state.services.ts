@@ -1,4 +1,5 @@
-import {DeleteStateResponse, GetAllStatesResponse, State} from "@/types/state";
+import {GetAllStatesResponse, State} from "@/types/state";
+import {Response} from "@/types/response";
 
 export default class StateService {
     static async getAll(baseUrl: string, token: string | null): Promise<GetAllStatesResponse> {
@@ -23,7 +24,7 @@ export default class StateService {
         return { states: data };
     }
 
-    static async create(baseUrl: string, token: string | null, state: State): Promise<State> {
+    static async create(baseUrl: string, token: string | null, state: State): Promise<Response> {
         const response = await fetch(`${baseUrl}/states`, {
             method: 'POST',
             headers: {
@@ -34,11 +35,13 @@ export default class StateService {
         });
 
         if (!response.ok) {
-            const error = await response.json()
-            return error
+            return {
+                statusCode: response.status,
+                message: response?.statusText || 'Erro desconhecido',
+            };
         }
 
-        return response.json();
+        return { statusCode: response.status };
     }
 
     static async update(baseUrl: string, token: string | null, state: State, id: string): Promise<State> {
@@ -59,7 +62,7 @@ export default class StateService {
         return response.json();
     }
 
-    static async delete(baseUrl: string, token: string | null, id: string): Promise<DeleteStateResponse> {
+    static async delete(baseUrl: string, token: string | null, id: string): Promise<Response> {
         const response = await fetch(`${baseUrl}/states/${id}`, {
             method: 'DELETE',
             headers: {

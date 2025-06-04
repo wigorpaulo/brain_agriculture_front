@@ -18,7 +18,9 @@ export default function StatesPage() {
 
     return (
         <Box my={4}>
-            <Typography variant="h4" gutterBottom>Estado</Typography>
+            <Typography variant="h4" gutterBottom>
+                {t("state")}
+            </Typography>
 
             <Paper sx={{p: 3, mb: 4}}>
                 <Typography variant="h6" gutterBottom>

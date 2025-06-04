@@ -21,7 +21,7 @@ import { formatDateTime } from "../../helper/Util";
 import { useTranslation } from 'next-i18next';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import DeleteIcon from '@mui/icons-material/Delete';
-import Swal from 'sweetalert2';
+import {confirmDelete} from "@/helper/confirmDelete";
 
 export default function StateListTable({ filters }: { filters: any }) {
     const { token, baseUrl } = useAuth();
@@ -81,25 +81,16 @@ export default function StateListTable({ filters }: { filters: any }) {
     };
 
     const handleDelete = async () =>  {
-        const result = await Swal.fire({
-            title: t("alert.confirm"),
-            text: t("alert.text.delete"),
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: t("alert.button.yes.delete"),
-            cancelButtonText: t("alert.button.cancel"),
-        });
-
-        if (result.isConfirmed) {
-            const response = await stateService.delete(baseUrl, token, String(selectedStateId));
-
-            if (response.statusCode === 200) {
-                Swal.fire(t("alert.deleted"), t("state.delete.success"), 'success');
+        await confirmDelete({
+            t,
+            id: String(selectedStateId),
+            itemName: t("state.delete.success"), // Ex: "Estado"
+            deleteCallback: (id) => stateService.delete(baseUrl, token, id),
+            onSuccess: () => {
                 handleMenuClose();
+                fetchEstados();
             }
-        }
+        });
     }
 
     useEffect(() => {
