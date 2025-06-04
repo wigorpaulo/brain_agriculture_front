@@ -7,7 +7,7 @@ import SaveIcon from '@mui/icons-material/Save';
 
 interface Props {
     initialData?: Partial<State>;
-    onSubmit: (data: { uf: string; name: string }) => Promise<void>;
+    onSubmit: (data: State) => Promise<void>;
     isSubmitting?: boolean;
     error?: string;
     success?: string;
@@ -31,7 +31,10 @@ export default function StateForm({
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        await onSubmit({ uf, name });
+
+        const state: State = { uf: uf, name: name};
+
+        await onSubmit(state);
     };
 
     return (

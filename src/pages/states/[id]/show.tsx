@@ -23,7 +23,12 @@ export default function ShowStatePage() {
         try {
             if (!id || typeof id !== 'string') return;
             const data = await stateService.getById(baseUrl, token, id,);
-            setState(data);
+
+            if (data.statusCode === 200) {
+                setState(data.state);
+            } else {
+                setError(t('state.find.error'));
+            }
         } catch (err: any) {
             setError(t('state.find.error'));
         } finally {

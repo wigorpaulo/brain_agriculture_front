@@ -1,9 +1,9 @@
-import {GetAllStatesResponse, GetOneStateResponse, State} from "@/types/state";
 import {Response} from "@/types/response";
+import {City, GetAllCitiesResponse, GetOneCityResponse} from "@/types/city";
 
-export default class StateService {
-    static async getAll(baseUrl: string, token: string | null): Promise<GetAllStatesResponse> {
-        const response = await fetch(`${baseUrl}/states`, {
+export default class CityService {
+    static async getAll(baseUrl: string, token: string | null): Promise<GetAllCitiesResponse> {
+        const response = await fetch(`${baseUrl}/cities`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -15,23 +15,23 @@ export default class StateService {
 
         if (!response.ok) {
             return {
-                states: [],
+                cities: [],
                 statusCode: response.status,
                 message: data?.message || 'Erro desconhecido',
             };
         }
 
-        return { states: data, statusCode: response.status };
+        return { cities: data, statusCode: response.status };
     }
 
-    static async create(baseUrl: string, token: string | null, state: State): Promise<Response> {
-        const response = await fetch(`${baseUrl}/states`, {
+    static async create(baseUrl: string, token: string | null, city: City): Promise<Response> {
+        const response = await fetch(`${baseUrl}/cities`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
-            body: JSON.stringify(state)
+            body: JSON.stringify(city)
         });
 
         if (!response.ok) {
@@ -44,14 +44,14 @@ export default class StateService {
         return { statusCode: response.status };
     }
 
-    static async update(baseUrl: string, token: string | null, state: State, id: string): Promise<State> {
-        const response = await fetch(`${baseUrl}/states/${id}`, {
+    static async update(baseUrl: string, token: string | null, city: City, id: string): Promise<City> {
+        const response = await fetch(`${baseUrl}/cities/${id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
-            body: JSON.stringify(state)
+            body: JSON.stringify(city)
         });
 
         if (!response.ok) {
@@ -63,7 +63,7 @@ export default class StateService {
     }
 
     static async delete(baseUrl: string, token: string | null, id: string): Promise<Response> {
-        const response = await fetch(`${baseUrl}/states/${id}`, {
+        const response = await fetch(`${baseUrl}/cities/${id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -81,8 +81,8 @@ export default class StateService {
         return { statusCode: response.status };
     }
 
-    static async getById(baseUrl: string, token: string | null, id: string): Promise<GetOneStateResponse> {
-        const response = await fetch(`${baseUrl}/states/${id}`, {
+    static async getById(baseUrl: string, token: string | null, id: string): Promise<GetOneCityResponse> {
+        const response = await fetch(`${baseUrl}/cities/${id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -92,7 +92,7 @@ export default class StateService {
 
         if (!response.ok) {
             return {
-                state: null,
+                city: null,
                 statusCode: response.status,
                 message: response?.statusText || 'Erro desconhecido',
             };
@@ -100,6 +100,6 @@ export default class StateService {
 
         const data = await response.json();
 
-        return { state: data, statusCode: response.status}
+        return { city: data, statusCode: response.status}
     }
 }
