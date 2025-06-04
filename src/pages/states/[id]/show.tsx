@@ -8,6 +8,7 @@ import {useRouter} from 'next/router';
 import {useEffect, useState} from "react";
 import stateService from "@/services/state.services";
 import {State} from "@/types/state";
+import StateShow from "@/components/states/Show";
 
 export default function ShowStatePage() {
     const { t } = useTranslation('common');
@@ -31,7 +32,7 @@ export default function ShowStatePage() {
     };
 
     useEffect(() => {
-
+        fetchState();
     }, [id, token, t]);
 
     if (!token || loading) {
@@ -48,6 +49,9 @@ export default function ShowStatePage() {
                 {t('state.show')}
             </Typography>
 
+            {state && (
+                <StateShow initialData={state} />
+            )}
 
         </Box>
     )

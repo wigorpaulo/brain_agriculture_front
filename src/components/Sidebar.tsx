@@ -22,20 +22,16 @@ export default function Sidebar() {
             <Toolbar /> {/* Apenas para alinhar com o AppBar */}
             <List>
                 <ListItem disablePadding>
-                    <Link href="/" passHref legacyBehavior>
-                        <ListItemButton component="a">
-                            <ListItemIcon><HomeIcon /></ListItemIcon>
-                            <ListItemText primary="Início" />
-                        </ListItemButton>
-                    </Link>
+                    <ListItemButton component={Link} href="/">
+                        <ListItemIcon><HomeIcon /></ListItemIcon>
+                        <ListItemText primary="Início" />
+                    </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>
-                    <Link href="/states" passHref legacyBehavior>
-                        <ListItemButton component="a">
-                            <ListItemIcon><LocationCityIcon /></ListItemIcon>
-                            <ListItemText primary="Estados" />
-                        </ListItemButton>
-                    </Link>
+                    <ListItemButton component={Link} href="/states">
+                        <ListItemIcon><LocationCityIcon /></ListItemIcon>
+                        <ListItemText primary="Estados" />
+                    </ListItemButton>
                 </ListItem>
                 {/* Adicione outros menus aqui */}
             </List>

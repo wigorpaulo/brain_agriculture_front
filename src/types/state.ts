@@ -11,3 +11,8 @@ export interface GetAllStatesResponse {
     statusCode?: number;
     message?: string;
 }
+
+export interface DeleteStateResponse {
+    statusCode?: number;
+    message?: string;
+}

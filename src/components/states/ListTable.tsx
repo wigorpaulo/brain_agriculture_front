@@ -19,6 +19,9 @@ import { useRouter } from "next/router";
 import EditIcon from '@mui/icons-material/Edit';
 import { formatDateTime } from "../../helper/Util";
 import { useTranslation } from 'next-i18next';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Swal from 'sweetalert2';
 
 export default function StateListTable({ filters }: { filters: any }) {
     const { token, baseUrl } = useAuth();
@@ -48,6 +51,13 @@ export default function StateListTable({ filters }: { filters: any }) {
         handleMenuClose();
     };
 
+    const handleShow = () => {
+        if (selectedStateId) {
+            router.push(`/states/${selectedStateId}/show`);
+        }
+        handleMenuClose();
+    };
+
     const fetchEstados = async () => {
         try {
             const data: GetAllStatesResponse = await stateService.getAll(baseUrl, String(token));
@@ -69,6 +79,28 @@ export default function StateListTable({ filters }: { filters: any }) {
             setLoading(false);
         }
     };
+
+    const handleDelete = async () =>  {
+        const result = await Swal.fire({
+            title: t("alert.confirm"),
+            text: t("alert.text.delete"),
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: t("alert.button.yes.delete"),
+            cancelButtonText: t("alert.button.cancel"),
+        });
+
+        if (result.isConfirmed) {
+            const response = await stateService.delete(baseUrl, token, String(selectedStateId));
+
+            if (response.statusCode === 200) {
+                Swal.fire(t("alert.deleted"), t("state.delete.success"), 'success');
+                handleMenuClose();
+            }
+        }
+    }
 
     useEffect(() => {
         if (token) {
@@ -120,11 +152,18 @@ export default function StateListTable({ filters }: { filters: any }) {
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                 transformOrigin={{ vertical: 'top', horizontal: 'right' }}
             >
+                <MenuItem onClick={handleShow}>
+                    <VisibilityIcon fontSize="small" sx={{ mr: 1 }} />
+                    { t("show") }
+                </MenuItem>
                 <MenuItem onClick={handleEdit}>
                     <EditIcon fontSize="small" sx={{ mr: 1 }} />
-                    Editar
+                    { t("edit") }
                 </MenuItem>
-                {/* você pode adicionar mais opções aqui */}
+                <MenuItem onClick={handleDelete}>
+                    <DeleteIcon fontSize="small" sx={{ mr: 1 }} />
+                    {t("delete")}
+                </MenuItem>
             </Menu>
         </Container>
     );

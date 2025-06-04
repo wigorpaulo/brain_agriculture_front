@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { TextField, Button, Stack, Box, Alert } from '@mui/material';
 import {State} from "@/types/state";
 import {useTranslation} from 'next-i18next';
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import SaveIcon from '@mui/icons-material/Save';
 
 interface Props {
     initialData?: Partial<State>;
@@ -53,10 +55,19 @@ export default function StateForm({
                     required
                 />
 
-                <Button type="submit" variant="contained" color="primary" disabled={isSubmitting}>
+                <Button type="submit"
+                        variant="contained"
+                        color="primary"
+                        disabled={isSubmitting}
+                        startIcon={<SaveIcon />}>
                     {isSubmitting ? t("salvage") : t("save")}
                 </Button>
-                <Button type="button" href="/states" variant="contained" color="secondary" disabled={isSubmitting}>
+                <Button type="button"
+                        href="/states"
+                        variant="contained"
+                        color="secondary"
+                        startIcon={<ArrowBackIcon />}
+                        disabled={isSubmitting}>
                     { t("back") }
                 </Button>
             </Stack>
