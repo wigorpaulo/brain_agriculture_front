@@ -3,10 +3,13 @@ import { Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Too
 import HomeIcon from '@mui/icons-material/Home';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import Link from 'next/link';
+import { useTranslation } from 'next-i18next';
 
 const drawerWidth = 240;
 
 export default function Sidebar() {
+    const { t } = useTranslation('common');
+
     return (
         <Drawer
             variant="permanent"
@@ -24,17 +27,17 @@ export default function Sidebar() {
                 <ListItem disablePadding>
                     <ListItemButton component={Link} href="/">
                         <ListItemIcon><HomeIcon /></ListItemIcon>
-                        <ListItemText primary="Início" />
+                        <ListItemText primary={t("menu.begin")} />
                     </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>
                     <ListItemButton component={Link} href="/states">
                         <ListItemIcon><LocationCityIcon /></ListItemIcon>
-                        <ListItemText primary="Estados" />
+                        <ListItemText primary={t("menu.state")} />
                     </ListItemButton>
                 </ListItem>
                 {/* Adicione outros menus aqui */}
             </List>
         </Drawer>
     );
-}
+};

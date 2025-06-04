@@ -18,6 +18,8 @@
   "edit": "Editar",
   "delete": "Excluir",
   "cancel": "Cancelar",
+  "menu.begin": "Início",
+  "menu.state": "Estado",
   "alert.confirm": "Você tem certeza?",
   "alert.text.delete": "Esta ação não pode ser desfeita!",
   "alert.button.yes.delete": "Sim, excluir",
