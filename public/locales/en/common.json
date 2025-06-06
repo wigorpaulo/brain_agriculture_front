@@ -20,6 +20,7 @@
   "cancel": "Cancel",
   "menu.begin": "Begin",
   "menu.state": "State",
+  "menu.city": "City",
   "alert.confirm": "Are you sure?",
   "alert.text.delete": "This action cannot be undone!",
   "alert.button.yes.delete": "Yes, delete",
@@ -39,5 +40,19 @@
   "state.id": "ID",
   "state.uf": "UF",
   "state.name": "Name",
-  "state.created_at": "Created"
+  "state.created_at": "Created",
+  "city": "City",
+  "city.create": "Create City",
+  "city.edit": "Edit City",
+  "city.show": "Show City",
+  "city.update.success": "City updated successfuly!",
+  "city.update.error": "Error updating city.",
+  "city.create.success": "City created successfully!",
+  "city.create.error": "Error creating city.",
+  "city.find.error": "Error fetching city.",
+  "city.delete.success": "The city was successfully removed.",
+  "city.id": "ID",
+  "city.name": "Name",
+  "city.state": "State",
+  "city.created_at": "Created"
 }

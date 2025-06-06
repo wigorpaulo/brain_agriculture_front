@@ -20,6 +20,7 @@
   "cancel": "Cancelar",
   "menu.begin": "Início",
   "menu.state": "Estado",
+  "menu.city": "Cidade",
   "alert.confirm": "Você tem certeza?",
   "alert.text.delete": "Esta ação não pode ser desfeita!",
   "alert.button.yes.delete": "Sim, excluir",
@@ -39,5 +40,19 @@
   "state.id": "ID",
   "state.uf": "UF",
   "state.name": "Descrição",
-  "state.created_at": "Criado em"
+  "state.created_at": "Criado em",
+  "city": "Cidade",
+  "city.create": "Criar Cidade",
+  "city.edit": "Editar Cidade",
+  "city.show": "Visualizar Cidade",
+  "city.update.success": "Cidade atualizado com sucesso!",
+  "city.update.error": "Erro ao atualizar cidade.",
+  "city.find.error": "Erro ao buscar cidade.",
+  "city.delete.success": "O cidade foi removido com sucesso.",
+  "city.create.success": "Cidade criado com sucesso!",
+  "city.create.error": "Erro ao criar cidade.",
+  "city.id": "ID",
+  "city.name": "Descrição",
+  "city.state": "Estado",
+  "city.created_at": "Criado em"
 }

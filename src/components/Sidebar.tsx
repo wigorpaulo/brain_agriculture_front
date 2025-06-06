@@ -4,6 +4,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
+import MapIcon from '@mui/icons-material/Map';
 
 const drawerWidth = 240;
 
@@ -32,8 +33,14 @@ export default function Sidebar() {
                 </ListItem>
                 <ListItem disablePadding>
                     <ListItemButton component={Link} href="/states">
-                        <ListItemIcon><LocationCityIcon /></ListItemIcon>
+                        <ListItemIcon><MapIcon /></ListItemIcon>
                         <ListItemText primary={t("menu.state")} />
+                    </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding>
+                    <ListItemButton component={Link} href="/cities">
+                        <ListItemIcon><LocationCityIcon /></ListItemIcon>
+                        <ListItemText primary={t("menu.city")} />
                     </ListItemButton>
                 </ListItem>
                 {/* Adicione outros menus aqui */}
